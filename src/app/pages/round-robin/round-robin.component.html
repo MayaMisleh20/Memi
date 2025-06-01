@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar class="orange-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="back()">←</ion-button>
+    </ion-buttons>
+    <ion-title>Round Robin Scheduler</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="sjf-content">
+  <div class="sjf-wrapper">
+    <section class="sjf-header">
+      <h1>Round Robin Simulator</h1>
+      <p>Simulate the <strong>Round Robin</strong> algorithm. Try solving it or see the system’s answer.</p>
+    </section>
+
+    <section class="sjf-section">
+      <h2><span>1</span> Input Configuration</h2>
+      <div class="sjf-form">
+        <ion-input type="text" placeholder="Arrival Times (e.g. 0 1 2)" [(ngModel)]="arrivalTimesInput" class="sjf-input"></ion-input>
+        <ion-input type="text" placeholder="Burst Times (e.g. 5 4 6)" [(ngModel)]="burstTimesInput" class="sjf-input"></ion-input>
+        <ion-input type="number" placeholder="Time Quantum" [(ngModel)]="timeQuantum" class="sjf-input"></ion-input>
+      </div>
+      <div class="sjf-actions">
+        <ion-button class="sjf-btn" (click)="trySolving()">Try Solving</ion-button>
+        <ion-button class="sjf-btn" fill="outline" (click)="revealAnswer()">See Answer</ion-button>
+      </div>
+    </section>
+
+    <section *ngIf="showCheck && solvedProcesses.length" class="sjf-section">
+      <h2><span>2</span> Your Solution</h2>
+      <div class="sjf-table">
+        <div class="sjf-table-header">
+          <div>Job</div><div>Waiting</div><div>Turnaround</div>
+        </div>
+        <div *ngFor="let p of solvedProcesses; let i = index" class="sjf-table-row">
+          <div>P{{ p.job }}</div>
+          <ion-input type="number" [(ngModel)]="userResults[i].waitingTime" class="sjf-input"></ion-input>
+          <ion-input type="number" [(ngModel)]="userResults[i].turnaroundTime" class="sjf-input"></ion-input>
+        </div>
+      </div>
+      <ion-button expand="block" class="sjf-btn" (click)="checkUserAnswers()">Check Answers</ion-button>
+
+      <div *ngIf="userChecked" class="sjf-table sjf-feedback">
+        <div class="sjf-table-header">
+          <div>Job</div><div>Correct WT</div><div>Correct TAT</div><div>Status</div>
+        </div>
+        <div *ngFor="let res of solvedProcesses; let i = index" class="sjf-table-row">
+          <div>P{{ res.job }}</div>
+          <div>{{ res.wat }}</div>
+          <div>{{ res.tat }}</div>
+          <div>
+            <ion-text [color]="correctAnswers[i] ? 'success' : 'danger'">
+              {{ correctAnswers[i] ? '✓' : '✗' }}
+            </ion-text>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section *ngIf="showAnswer && solvedProcesses.length" class="sjf-section">
+      <h2><span>3</span> Gantt Chart & Results</h2>
+
+      <div class="sjf-gantt">
+        <div *ngFor="let g of ganttChart" class="gantt-block">
+          <div>P{{ g.job }}</div>
+          <small>{{ g.start }} → {{ g.stop }}</small>
+        </div>
+      </div>
+
+      <div class="sjf-table">
+        <div class="sjf-table-header">
+          <div>Job</div><div>Arrival</div><div>Burst</div><div>Finish</div><div>TAT</div><div>WT</div>
+        </div>
+        <div *ngFor="let p of solvedProcesses" class="sjf-table-row">
+          <div>P{{ p.job }}</div>
+          <div>{{ p.at }}</div>
+          <div>{{ p.bt }}</div>
+          <div>{{ p.ft }}</div>
+          <div>{{ p.tat }}</div>
+          <div>{{ p.wat }}</div>
+        </div>
+        <div class="sjf-table-footer">
+          <div>Average</div><div></div><div></div><div></div>
+          <div>{{ avgTat | number:'1.2-2' }}</div>
+          <div>{{ avgWat | number:'1.2-2' }}</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>

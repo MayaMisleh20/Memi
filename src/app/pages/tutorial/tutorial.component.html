@@ -1,0 +1,31 @@
+<ion-content class="lb-container" fullscreen>
+  <div class="tutorial-wrapper">
+    <!-- Header with navigation arrows -->
+    <section class="tutorial-header with-nav">
+      <div class="tutorial-header-row">
+        <span class="lb-nav-text" (click)="goHome()">&lt;</span>
+        <h1>Welcome to the Simulator</h1>
+        <span class="lb-nav-text" (click)="goTutorial()">&gt;</span>
+      </div>
+      <p>Follow these steps to get started with your first algorithm simulation.</p>
+    </section>
+
+    <!-- Step cards -->
+    <section class="tutorial-steps">
+      <div class="tutorial-card" *ngFor="let step of steps; let i = index">
+        <div class="card-number">{{ i + 1 }}</div>
+        <div class="card-content">
+          <h2>{{ step.title }}</h2>
+          <p [innerHTML]="step.description"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Try it now button -->
+    <div class="footer-btn">
+      <ion-button expand="block" class="try-button" (click)="back()">
+        Press here to try it now →
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

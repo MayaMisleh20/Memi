@@ -1,0 +1,141 @@
+$orange: #ff8800;
+
+:host {
+  --ion-background-color: #fffdfb;
+  font-family: 'Inter', sans-serif;
+}
+
+.lb-container {
+  background-color: #fffdfb;
+  display: flex;
+  justify-content: center;
+}
+
+.tutorial-wrapper {
+  width: 100%;
+  max-width: 1100px;
+  padding: 2rem 1.2rem 3rem;
+  margin: 0 auto;
+}
+
+.tutorial-header {
+  text-align: center;
+  padding-bottom: 1rem;
+
+  &.with-nav {
+    padding-top: 0.5rem;
+
+    .tutorial-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: $orange;
+      margin: 0;
+      flex: 1;
+      text-align: center;
+    }
+
+    p {
+      margin-top: 0.8rem;
+      color: #555;
+      font-size: 1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.lb-nav-text {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: $orange;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  &:focus,
+  &:active,
+  &:hover {
+    outline: none;
+    background: none;
+    box-shadow: none;
+  }
+}
+
+.tutorial-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.tutorial-card {
+  display: flex;
+  align-items: flex-start;
+  background: #ffffff;
+  border-left: 4px solid $orange;
+  border-radius: 14px;
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.card-number {
+  background: $orange;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-content h2 {
+  font-size: 1.1rem;
+  color: #222;
+  margin: 0 0 0.3rem;
+}
+
+.card-content p {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.footer-btn {
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.try-button {
+  --background: #ff8800;
+  --color: #ffffff;
+  --border-radius: 9999px;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.9rem;
+  height: 48px;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+
+

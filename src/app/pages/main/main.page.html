@@ -1,0 +1,27 @@
+<ion-content class="main-page" fullscreen>
+  <div class="split-layout">
+    <div class="visual-panel">
+      <ng-lottie [options]="options"></ng-lottie>
+    </div>
+    <div class="form-panel">
+      <h1 class="logo">SchedLearn</h1>
+      <p class="subtitle">An Educational App Supporting the Exploration of Scheduling and Concurrency</p>
+
+      <div class="tabs">
+        <button class="tab" [class.active]="mode === 'login'" (click)="setMode('login')">Log in</button>
+        <button class="tab" [class.active]="mode === 'signup'" (click)="setMode('signup')">Sign up</button>
+      </div>
+
+      <form class="auth-form" (submit)="onSubmit($event)">
+        <input type="email" [(ngModel)]="email" name="email" placeholder="Email or username" required />
+        <div class="password-field">
+          <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" name="password" placeholder="Password" required />
+          <span class="show-toggle" (click)="togglePassword()">{{ showPassword ? 'Hide' : 'Show' }}</span>
+        </div>
+        <button type="submit" class="main-action-btn">{{ mode === 'login' ? 'Log in to your account' : 'Create your account' }}</button>
+      </form>
+
+      <a href="#" class="forgot">Forgot password?</a>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,786 @@
+.worksteal-content {
+  --ion-background-color: #f8f9fa;
+  --ion-font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    sans-serif;
+}
+.color-option {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+ 
+/*-----------------------------
+  Header & Hero Section
+------------------------------*/
+.header-toolbar {
+  --background: var(--ion-color-primary);
+}
+.back-button,
+.icon-button {
+  --color: white;
+  --padding-start: 8px;
+  --padding-end: 8px;
+}
+.header-title {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+ 
+/* Hero Section */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0 3rem;
+  padding: 2rem 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(58, 123, 213, 0.1) 0%,
+    rgba(91, 192, 190, 0.1) 100%
+  );
+  border-radius: 16px;
+  text-align: center;
+ 
+  .hero-text {
+    max-width: 600px;
+  }
+  .hero-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--ion-color-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+ 
+  .hero-graphic {
+    width: 100%;
+    max-width: 500px;
+  }
+  .process-sample {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .process-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  .process-circle:hover {
+    transform: translateY(-5px);
+  }
+  /* Gentle pulse animation */
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.5);
+    }
+    70% {
+      box-shadow: 0 0 0 15px rgba(231, 76, 60, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+    }
+  }
+}
+ 
+/*-----------------------------
+  How It Works Card
+------------------------------*/
+.how-it-works-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+ 
+  .card-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+  .card-subtitle {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+  }
+ 
+  ion-accordion-group {
+    margin-top: 1rem;
+  }
+ 
+  .accordion-header {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --inner-padding-end: 0;
+    --ion-item-background: #fdfdfd;
+    font-weight: 500;
+  }
+  .accordion-header ion-icon:first-child {
+    color: var(--ion-color-primary);
+  }
+  .accordion-header ion-icon:last-child {
+    color: #7f8c8d;
+  }
+  .accordion-content {
+    padding: 1rem 1.5rem;
+    background: #fafafa;
+    border-left: 3px solid var(--ion-color-primary);
+    border-radius: 0 0 8px 8px;
+ 
+    p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #555;
+      margin: 0.5rem 0;
+    }
+  }
+ 
+  .algorithm-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .step-number {
+    width: 28px;
+    height: 28px;
+    background-color: var(--ion-color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .step-content {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #555;
+    padding-top: 3px;
+  }
+ 
+  .formula-card {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+  }
+  .formula {
+    margin-bottom: 1rem;
+  }
+  .formula-name {
+    display: block;
+    font-weight: 600;
+    color: var(--ion-color-primary);
+    margin-bottom: 0.25rem;
+  }
+  .formula-equation {
+    display: block;
+    font-family: 'Courier New', monospace;
+    background-color: #f0f2f5;
+    padding: 0.5rem;
+    border-radius: 6px;
+    color: #333;
+  }
+}
+ 
+/*-----------------------------
+  Cards & Common Styles
+------------------------------*/
+ion-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  border: none;
+}
+ 
+/*-----------------------------
+  Configuration Card
+------------------------------*/
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+.config-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+}
+.input-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+.elegant-input {
+  --background: #fff;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  font-size: 0.95rem;
+  --highlight-color-focused: var(--ion-color-primary);
+}
+.elegant-range {
+  --bar-background: #e0e0e0;
+  --bar-background-active: var(--ion-color-primary);
+  --knob-background: var(--ion-color-primary);
+  padding-top: 20px;
+}
+.range-icon {
+  color: var(--ion-color-primary);
+  font-size: 1.2rem;
+}
+.elegant-button {
+  --border-radius: 8px;
+  --padding-top: 1rem;
+  --padding-bottom: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: none;
+  margin: 0.5rem 0;
+  transition: all 0.3s ease;
+  ion-icon {
+    font-size: 1.2rem;
+  }
+}
+.elegant-button.primary {
+  --background: var(--ion-color-primary);
+  --background-hover: var(--ion-color-primary-shade);
+  --background-activated: var(--ion-color-primary-tint);
+  --color: white;
+}
+.elegant-button.secondary {
+  --background: var(--ion-color-secondary);
+  --background-hover: var(--ion-color-secondary-shade);
+  --background-activated: var(--ion-color-secondary-tint);
+  --color: white;
+}
+.elegant-button.tertiary {
+  --background: var(--ion-color-tertiary);
+  --background-hover: var(--ion-color-tertiary-shade);
+  --background-activated: var(--ion-color-tertiary-tint);
+  --color: white;
+}
+.elegant-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+ 
+/*-----------------------------
+  Process Table
+------------------------------*/
+.process-table {
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.table-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: var(--ion-color-primary);
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.table-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: white;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.table-row:last-child {
+  border-bottom: none;
+}
+.table-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+.process-cell {
+  font-weight: 600;
+  color: var(--ion-color-primary);
+}
+.color-select {
+  width: 100%;
+  max-width: 100px;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+.color-option {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+}
+ 
+/*-----------------------------
+  Action Buttons
+------------------------------*/
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+ 
+/*-----------------------------
+  Gantt Chart
+------------------------------*/
+.gantt-container {
+  margin-top: 1.5rem;
+}
+.timeline-axis {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  height: 30px;
+  margin-bottom: 10px;
+}
+.timeline-marker {
+  position: relative;
+  flex: 1;
+  text-align: center;
+}
+.marker-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 10px;
+  background-color: #ccc;
+  transform: translateX(-50%);
+}
+.marker-label {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: #666;
+}
+.gantt-chart {
+  height: 60px;
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.gantt-bar {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 500;
+  transition: all 0.5s ease;
+}
+.bar-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 5px;
+  text-align: center;
+}
+.bar-process {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.bar-time {
+  font-size: 0.7rem;
+  opacity: 0.9;
+}
+ 
+/*-----------------------------
+  Metrics Grid
+------------------------------*/
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.metric-card {
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ion-color-primary);
+  margin: 0.5rem 0;
+}
+.metric-unit {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+ 
+/*-----------------------------
+  Details Table
+------------------------------*/
+.details-table {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.details-header {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  background-color: var(--ion-color-primary);
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.details-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  background-color: white;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.details-row:last-child {
+  border-bottom: none;
+}
+.details-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+ 
+/*-----------------------------
+  Solution Section
+------------------------------*/
+.solution-grid {
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.solution-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: var(--ion-color-primary);
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.solution-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: white;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.solution-row:last-child {
+  border-bottom: none;
+}
+.solution-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+.solution-input {
+  --background: #f8f9fa;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  font-size: 0.9rem;
+  text-align: center;
+  max-width: 80px;
+}
+.status-badge {
+  font-weight: 500;
+  ion-icon {
+    font-size: 1rem;
+    margin-right: 4px;
+  }
+}
+ 
+/*-----------------------------
+  Feedback Section
+------------------------------*/
+.feedback-container {
+  margin-top: 2rem;
+}
+.feedback-card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.feedback-card.perfect {
+  background: linear-gradient(
+    135deg,
+    rgba(46, 213, 115, 0.1) 0%,
+    rgba(46, 213, 115, 0.2) 100%
+  );
+  border-left: 4px solid #2ed573;
+}
+.feedback-card.good {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 165, 0, 0.1) 0%,
+    rgba(255, 165, 0, 0.2) 100%
+  );
+  border-left: 4px solid #ffa500;
+}
+.feedback-card.average {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 71, 87, 0.1) 0%,
+    rgba(255, 71, 87, 0.2) 100%
+  );
+  border-left: 4px solid #ff4757;
+}
+.feedback-card.poor {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 0, 0.1) 0%,
+    rgba(255, 0, 0, 0.2) 100%
+  );
+  border-left: 4px solid #ff0000;
+}
+.score-display {
+  margin-right: 1.5rem;
+  text-align: center;
+  min-width: 80px;
+}
+.score-value {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.score-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #7f8c8d;
+}
+.feedback-message {
+  font-size: 1rem;
+  line-height: 1.5;
+  flex: 1;
+}
+ 
+/*-----------------------------
+  Tutorial Modal
+------------------------------*/
+.tutorial-modal {
+  --width: 90%;
+  --max-width: 600px;
+  --height: 85%;
+  --border-radius: 16px;
+}
+.modal-title {
+  font-weight: 600;
+}
+.modal-close {
+  --color: white;
+}
+.tutorial-content {
+  --background: #fff;
+}
+.tutorial-section {
+  margin-bottom: 2rem;
+}
+.tutorial-heading {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  color: var(--ion-color-primary);
+  margin-bottom: 1rem;
+}
+.heading-icon {
+  margin-right: 0.75rem;
+  color: var(--ion-color-primary);
+}
+.tutorial-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+.feature-list {
+  background: transparent;
+}
+.feature-item {
+  --background: transparent;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 0.5rem;
+}
+.feature-label {
+  font-size: 0.95rem;
+}
+.algorithm-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.step-number {
+  width: 28px;
+  height: 28px;
+  background-color: var(--ion-color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.step-content {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #555;
+  padding-top: 3px;
+}
+.formula-card {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+}
+.formula {
+  margin-bottom: 1rem;
+}
+.formula-name {
+  display: block;
+  font-weight: 600;
+  color: var(--ion-color-primary);
+  margin-bottom: 0.25rem;
+}
+.formula-equation {
+  display: block;
+  font-family: 'Courier New', monospace;
+  background-color: #f0f2f5;
+  padding: 0.5rem;
+  border-radius: 6px;
+  color: #333;
+}
+.tutorial-button {
+  --border-radius: 8px;
+  margin-top: 1.5rem;
+  font-weight: 500;
+}
+ 
+.cpu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.log-section {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.log-container {
+  max-height: 200px; /* makes it scrollable if long */
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.log-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.log-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1rem; /* increase size */
+  color: #333;
+}
+
+.log-list li:last-child {
+  border-bottom: none;
+}
+
+/*-----------------------------
+  Responsive Adjustments
+------------------------------*/
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  .table-header,
+  .table-row,
+  .details-header,
+  .details-row,
+  .solution-header,
+  .solution-row {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .gantt-bar .bar-process {
+    font-size: 0.9rem;
+  }
+  .gantt-bar .bar-time {
+    display: none;
+  }
+}
+ 

@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary" class="header-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" class="back-button"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="header-title">Stride Scheduler</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openTutorial()" class="icon-button">
+        <ion-icon name="help-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding stride-content">
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-text">
+        <h1 class="hero-title">Stride Scheduling Visualizer</h1>
+        <p class="hero-subtitle">
+          Explore the Stride Scheduling algorithm with an interactive simulation.
+          Adjust process counts, set priorities, and visualize how the CPU allocates time over ticks.
+        </p>
+      </div>
+      <div class="hero-graphic">
+        <div class="process-sample">
+          <div
+            class="process-circle pulse"
+            *ngFor="let sp of sampleProcesses"
+            [style.background]="sp.color"
+          >
+            <span>P{{ sp.id }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Add/Configure Processes Section -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Configure Processes</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Number of Processes</ion-label>
+          <ion-input type="number" [(ngModel)]="numProcesses"></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="initProcesses()">Initialize Processes</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Gantt Chart Display -->
+    <ion-card *ngIf="ganttChart.length">
+      <ion-card-header>
+        <ion-card-title>Gantt Chart</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="gantt-container">
+          <div class="gantt-bar" *ngFor="let entry of ganttChart">
+            <span class="gantt-block">P{{ entry.pid }} ({{ entry.start }}-{{ entry.end }})</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Simulation Buttons -->
+    <div class="action-buttons">
+      <ion-button expand="block" color="primary" (click)="simulateStride()">Simulate Stride</ion-button>
+      <ion-button expand="block" color="medium" (click)="resetAll()">Reset</ion-button>
+    </div>
+  </div>
+</ion-content>

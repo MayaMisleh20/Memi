@@ -1,0 +1,66 @@
+<ion-content fullscreen class="home-container">
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-text">
+      <h1>Explore CPU Scheduling Algorithms</h1>
+      <p>Swipe through the CPU scheduling algorithms and tap “Try” to play!</p>
+    </div>
+    <div class="bg-shape"></div>
+  </div>
+
+  <!-- Scrollable Algorithm Cards -->
+  <div #cardsContainer class="cards-container" (scroll)="onScroll($event)">
+    <div class="card" *ngFor="let alg of algorithms" (click)="go(alg)" tabindex="0">
+      <ion-icon [name]="alg.icon" class="card-icon"></ion-icon>
+      <h2 class="card-title">{{ alg.name }}</h2>
+      <p class="card-desc">{{ alg.description }}</p>
+      <p class="card-detail">{{ alg.detail }}</p>
+      <ion-button class="try-btn" expand="block" (click)="go(alg); $event.stopPropagation()">Try</ion-button>
+    </div>
+  </div>
+
+  <!-- Pagination Dots -->
+  <div class="pagination">
+    <span class="dot" *ngFor="let _ of algorithms; let i = index" [class.active]="i === currentIndex"></span>
+  </div>
+
+  <!-- Game Hub Section -->
+  <div class="hub-section">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6" size-lg="3">
+          <ion-card class="hub-card" (click)="navigateToLeaderboard()">
+            <ion-card-header>
+              <ion-card-title>Leaderboard</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>See top performers and fastest simulation runs.</ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-md="6" size-lg="3">
+          <ion-card class="hub-card" (click)="openTutorial()">
+            <ion-card-header>
+              <ion-card-title>Tutorial</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>Learn how each scheduling algorithm works in-depth.</ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-md="6" size-lg="3">
+          <ion-card class="hub-card" (click)="openSettings()">
+            <ion-card-header>
+              <ion-card-title>AI Coach</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>Get personalized algorithm recommendations.</ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-md="6" size-lg="3">
+          <ion-card class="hub-card" (click)="openComp()">
+            <ion-card-header>
+              <ion-card-title>Battle Mode</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>Compare two algorithms on the same workload.</ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

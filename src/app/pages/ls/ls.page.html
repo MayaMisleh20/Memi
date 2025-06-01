@@ -1,0 +1,215 @@
+<ion-header>
+  <ion-toolbar color="primary" class="header-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" class="back-button"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="header-title">Lottery Scheduler</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openTutorial()" class="icon-button">
+        <ion-icon name="help-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding sjf-content">
+  <div class="container">
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-text">
+        <h1 class="hero-title">Lottery Scheduling Visualizer</h1>
+        <p class="hero-subtitle">
+          Explore the Lottery Scheduling algorithm with an interactive simulation.
+          Add processes, assign tickets, and predict the winner before the spin!
+        </p>
+      </div>
+      <div class="hero-graphic">
+        <div class="process-sample">
+          <div class="process-circle pulse" *ngFor="let proc of processes; let i = index"
+            [style.background]="colorOptions[i % colorOptions.length].value">
+            <span>{{ proc.name }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="process-sample">
+        <div
+          class="process-circle pulse"
+          *ngFor="let sp of sampleProcesses"
+          [style.background]="sp.color"
+        >
+          <span>{{ sp.name }}</span>
+        </div>
+      </div>
+    </section>
+
+ <!-- How It Works Accordion -->
+ <ion-card class="how-it-works-card">
+  <ion-card-header>
+    <ion-card-title class="card-title">How It Works</ion-card-title>
+    <ion-card-subtitle class="card-subtitle">Understand the Lottery Scheduling steps</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-accordion-group>
+      <ion-accordion value="overview">
+        <ion-item slot="header" class="accordion-header">
+          <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+          <ion-label>Overview</ion-label>
+          <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
+        </ion-item>
+        <div slot="content" class="accordion-content">
+          <p>
+            Lottery Scheduling is a randomized CPU scheduling algorithm where each process holds a number of tickets. The more tickets a process holds, the higher its chance to be selected in the next lottery draw.
+          </p>
+        </div>
+      </ion-accordion>
+
+      <ion-accordion value="steps">
+        <ion-item slot="header" class="accordion-header">
+          <ion-icon name="play-outline" slot="start"></ion-icon>
+          <ion-label>Steps</ion-label>
+          <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
+        </ion-item>
+        <div slot="content" class="accordion-content">
+          <div class="algorithm-steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">Add processes and assign ticket counts.</div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-content">Predict which process will win the next lottery draw.</div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-content">Run the lottery and check if your prediction was correct.</div>
+            </div>
+          </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </ion-card-content>
+</ion-card>
+
+    <!-- Add Process Card -->
+    <ion-card class="process-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">Add Process</ion-card-title>
+        <ion-card-subtitle class="card-subtitle">Enter process name, ticket count, and number of CPU cores</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="config-grid">
+          <div class="config-item">
+            <div class="input-label">Process Name</div>
+            <ion-input [(ngModel)]="processName" placeholder="e.g., P1" class="elegant-input"></ion-input>
+          </div>
+          <div class="config-item">
+            <div class="input-label">Ticket Count</div>
+            <ion-input type="number" [(ngModel)]="ticketCount" placeholder="e.g., 10" class="elegant-input"></ion-input>
+          </div>
+          <div class="config-item">
+            <div class="input-label">CPU Cores</div>
+            <ion-input type="number" [(ngModel)]="cpuCount" placeholder="e.g., 1" class="elegant-input"></ion-input>
+          </div>
+        </div>
+        <ion-button expand="block" class="elegant-button primary" (click)="addProcess()">
+          <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+          Add Process
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Prediction Card -->
+    <ion-card *ngIf="processes.length">
+      <ion-card-header>
+        <ion-card-title class="card-title">Your Prediction</ion-card-title>
+        <ion-card-subtitle class="card-subtitle">Which process will win the next lottery?</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-select [(ngModel)]="studentPrediction" placeholder="Select process" class="elegant-input">
+          <ion-select-option *ngFor="let proc of processes" [value]="proc.name">{{ proc.name }}</ion-select-option>
+        </ion-select>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <ion-button expand="block" class="elegant-button primary" (click)="runLottery()" [disabled]="!studentPrediction">
+        <ion-icon slot="start" name="play-outline"></ion-icon>
+        Run Lottery
+      </ion-button>
+      <ion-button expand="block" class="elegant-button tertiary" (click)="reset()" *ngIf="processes.length">
+        <ion-icon slot="start" name="refresh-outline"></ion-icon>
+        Reset
+      </ion-button>
+    </div>
+
+   <!-- Result Section -->
+<ion-card *ngIf="showResult" class="details-card">
+  <ion-card-header>
+    <ion-card-title class="card-title">Result</ion-card-title>
+    <ion-card-subtitle class="card-subtitle">Check if your prediction was right</ion-card-subtitle>
+  </ion-card-header>
+
+  <!-- Lottie animation here -->
+  <div class="animation-container">
+    <ng-lottie [options]="lottieOptions" style="width: 250px; height: 250px; margin: auto;"></ng-lottie>
+  </div>
+
+  <ion-card-content>
+    <div class="details-table">
+      <div class="details-row">
+        <div class="details-cell">You predicted:</div>
+        <div class="details-cell"><strong>{{ studentPrediction }}</strong></div>
+      </div>
+      <div class="details-row">
+        <div class="details-cell">Winning Chance:</div>
+        <div class="details-cell">{{ predictionProbability }}</div>
+      </div>
+      <div class="details-row">
+        <div class="details-cell">Actual Winner:</div>
+        <div class="details-cell"><strong>{{ selectedProcesses[0] }}</strong></div>
+      </div>
+      <div class="details-row">
+        <div class="details-cell">Outcome:</div>
+        <div class="details-cell">
+          <span [ngClass]="{'correct': predictionResult.includes('Correct'), 'incorrect': predictionResult.includes('Incorrect')}">
+            {{ predictionResult }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+    <!-- Tutorial Modal -->
+    <ion-modal [isOpen]="showTutorialModal" (didDismiss)="showTutorialModal = false" class="tutorial-modal">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar color="primary">
+            <ion-title class="modal-title">Lottery Scheduling Tutorial</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="showTutorialModal = false" class="modal-close">
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding tutorial-content">
+          <div class="tutorial-section">
+            <h2 class="tutorial-heading">
+              <ion-icon name="time-outline" class="heading-icon"></ion-icon>
+              What is Lottery Scheduling?
+            </h2>
+            <p class="tutorial-text">
+              Lottery Scheduling is a randomized CPU scheduling method where processes hold tickets. A random draw picks the next process to run, and processes with more tickets have a higher probability of being selected.
+            </p>
+          </div>
+          <ion-button expand="block" class="tutorial-button" (click)="showTutorialModal = false">
+            Got It! Let's Try
+          </ion-button>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+</ion-content>

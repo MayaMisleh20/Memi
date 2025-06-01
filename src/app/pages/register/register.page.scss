@@ -1,0 +1,94 @@
+.signup-bg {
+  --background: white;
+  color: black;
+  font-family: 'Inter', sans-serif;
+}
+
+.form-container {
+  padding: 32px;
+  max-width: 500px;
+  margin: 0 auto;
+
+  h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  p {
+    opacity: 0.6;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  ion-item {
+    --background: rgba(255, 140, 0, 0.05);
+    --color: black;
+    --padding-start: 12px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+
+    ion-input {
+      font-size: 1rem;
+    }
+
+    &:hover,
+    &:focus-within {
+      border-color: #ffa726;
+      box-shadow: 0 0 12px rgba(251, 140, 0, 0.4);
+    }
+  }
+
+  ion-label {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    padding-left: 10px;
+  }
+
+  ion-checkbox {
+    --checkbox-background-checked: #fb8c00;
+    --checkmark-color: white;
+  }
+
+  .submit-button {
+    margin-top: 24px;
+    height: 50px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 12px;
+    --background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+    --box-shadow: 0 0 12px rgba(251, 140, 0, 0.6);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.02);
+      --background: linear-gradient(135deg, #ffb74d 0%, #ffa726 100%);
+    }
+
+    &:active {
+      transform: scale(0.98);
+      --box-shadow: 0 0 8px rgba(251, 140, 0, 0.3);
+    }
+
+    &[disabled] {
+      opacity: 0.4;
+      --background: #bdbdbd;
+    }
+  }
+
+  .bottom-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+
+    a {
+      color: #fb8c00;
+      text-decoration: underline;
+    }
+  }
+}

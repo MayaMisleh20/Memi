@@ -1,0 +1,150 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Algorithm Battle</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content class="ion-padding">
+  <div class="battle-container">
+    <div class="header-section">
+      <h1>CPU Scheduling Battle Arena</h1>
+      <p class="subtitle">Simulate and compare scheduling strategies</p>
+    </div>
+ 
+    <ion-card class="config-card">
+      <ion-card-header>
+        <ion-card-title>Setup Your Battle</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-label>Mode</ion-label>
+          <ion-segment [(ngModel)]="mode" color="primary">
+            <ion-segment-button value="1vs1">
+              <ion-label>1 vs 1</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="1vsAll">
+              <ion-label>1 vs All</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-item>
+ 
+        <ion-item>
+          <ion-label position="stacked">Test Case</ion-label>
+          <ion-select [(ngModel)]="selectedQuestionIndex" interface="popover">
+            <ion-select-option *ngFor="let q of questions; let i = index" [value]="i">
+              #{{q.id}}: {{q.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+ 
+        <div class="algorithm-selection">
+          <ion-item>
+            <ion-label position="stacked">Algorithm A</ion-label>
+            <ion-select [(ngModel)]="algorithmA" interface="popover">
+              <ion-select-option *ngFor="let alg of algorithms" [value]="alg">
+                {{alg}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+ 
+          <ion-item *ngIf="mode === '1vs1'">
+            <ion-label position="stacked">Algorithm B</ion-label>
+            <ion-select [(ngModel)]="algorithmB" interface="popover">
+              <ion-select-option *ngFor="let alg of algorithms" [value]="alg">
+                {{alg}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+ 
+        <ion-button expand="block" color="primary" (click)="runSimulation()"
+          [disabled]="!algorithmA || (mode === '1vs1' && (!algorithmB || algorithmA === algorithmB))">
+          Start Simulation
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+ 
+    <ion-card *ngIf="questions[selectedQuestionIndex]" class="process-card">
+      <ion-card-header>
+        <ion-card-title>Processes</ion-card-title>
+        <ion-card-subtitle>From Test Case {{questions[selectedQuestionIndex].id}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <table class="process-table">
+          <thead>
+            <tr>
+              <th>Process</th>
+              <th>Arrival</th>
+              <th>Burst</th>
+              <th *ngIf="questions[selectedQuestionIndex].processes[0]?.priority !== undefined">Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of questions[selectedQuestionIndex].processes">
+              <td>{{p.name}}</td>
+              <td>{{p.arrival}}</td>
+              <td>{{p.burst}}</td>
+              <td *ngIf="p.priority !== undefined">{{p.priority}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-card-content>
+    </ion-card>
+ 
+    <div *ngIf="results" class="results-section">
+      <h2>Results</h2>
+ 
+      <div *ngIf="mode === '1vs1'" class="vs-results">
+        <ion-card class="result-card">
+          <ion-card-header>
+            <ion-card-title>{{algorithmA}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Avg Wait: {{results[algorithmA!]?.avgWait}} ms</p>
+            <p>Turnaround: {{results[algorithmA!]?.avgTurnaround}} ms</p>
+            <p>Utilization: {{results[algorithmA!]?.cpuUtilization}}%</p>
+          </ion-card-content>
+        </ion-card>
+ 
+        <div class="vs-label">VS</div>
+ 
+        <ion-card class="result-card">
+          <ion-card-header>
+            <ion-card-title>{{algorithmB}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Avg Wait: {{results[algorithmB!]?.avgWait}} ms</p>
+            <p>Turnaround: {{results[algorithmB!]?.avgTurnaround}} ms</p>
+            <p>Utilization: {{results[algorithmB!]?.cpuUtilization}}%</p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+ 
+      <ion-card *ngIf="mode === '1vsAll'">
+        <ion-card-content>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Algorithm</th>
+                <th>Avg Wait</th>
+                <th>Turnaround</th>
+                <th>Utilization</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let alg of algorithms">
+                <td>{{alg}}</td>
+                <td>{{results[alg]?.avgWait}} ms</td>
+                <td>{{results[alg]?.avgTurnaround}} ms</td>
+                <td>{{results[alg]?.cpuUtilization}}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

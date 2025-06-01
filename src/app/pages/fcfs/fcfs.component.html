@@ -1,0 +1,101 @@
+<ion-content class="ion-padding">
+  <div class="simulator-container">
+ 
+    <!-- LEFT CONTROL PANEL -->
+    <ion-card class="control-panel">
+      <ion-card-header>
+        <ion-card-title>FCFS Scheduler</ion-card-title>
+      </ion-card-header>
+ 
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Process ID</ion-label>
+          <ion-input
+            [(ngModel)]="currentInput.id"
+            placeholder="Enter the ID to identify process"
+          ></ion-input>
+        </ion-item>
+ 
+        <ion-item>
+          <ion-label position="stacked">Arrival Time</ion-label>
+          <ion-input type="number" [(ngModel)]="currentInput.arrivalTime"></ion-input>
+        </ion-item>
+ 
+        <ion-item>
+          <ion-label position="stacked">Burst Time</ion-label>
+          <ion-input type="number" [(ngModel)]="currentInput.burstTime"></ion-input>
+        </ion-item>
+ 
+        <div class="button-group">
+          <ion-button (click)="addProcess()">Add</ion-button>
+          <ion-button color="medium" (click)="removeProcess()">Remove</ion-button>
+          <ion-button color="medium" (click)="undo()">Undo</ion-button>
+          <ion-button color="danger" (click)="clear()">Clear</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+ 
+    <!-- RIGHT CHART + TABLE PANEL -->
+    <div class="chart-panel">
+      <h3>Gantt Chart</h3>
+      <div class="gantt-wrapper">
+        <div class="gantt-bar">
+          <div
+            *ngFor="let block of displaySlots"
+            class="gantt-slot"
+            [ngClass]="{ idle: block.name === 'IDLE' }"
+            [style.flex]="block.burst"
+          >
+            {{ block.name }}
+          </div>
+        </div>
+ 
+        <div class="time-axis">
+          <div
+            *ngFor="let time of timeLabels"
+            class="tick"
+            [style.left.%]="(time / totalTime) * 100"
+          >
+            {{ time }}
+          </div>
+        </div>
+      </div>
+ 
+      <!-- TABLE -->
+      <div class="process-table" *ngIf="detailedRows.length">
+        <h3>Process Details</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Process</th>
+              <th>Arrival</th>
+              <th>Burst</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Waiting</th>
+              <th>Turnaround</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of detailedRows">
+              <td>{{ row.name }}</td>
+              <td>{{ row.arrivalTime }}</td>
+              <td>{{ row.burstTime }}</td>
+              <td>{{ row.startTime }}</td>
+              <td>{{ row.endTime }}</td>
+              <td>{{ row.waiting }}</td>
+              <td>{{ row.turnaround }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+ 
+      <!-- Averages -->
+      <div class="result" *ngIf="processes.length">
+        <p><strong>Avg Waiting Time:</strong> {{ avgWaitingTime | number: '1.2-2' }}</p>
+        <p><strong>Avg Turnaround Time:</strong> {{ avgTurnaroundTime | number: '1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>
+ 

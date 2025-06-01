@@ -1,0 +1,7 @@
+{
+  "name": "cpugame",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

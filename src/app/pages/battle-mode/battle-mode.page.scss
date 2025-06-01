@@ -1,0 +1,61 @@
+.battle-container {
+    --ion-background-color: #ffffff;
+    padding: 1.5rem 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .intro {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .intro h1 {
+    font-size: 1.8rem;
+    color: #ff8800;
+    margin-bottom: 0.5rem;
+  }
+  
+  .intro p {
+    font-size: 1rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .setup ion-item {
+    margin-bottom: 1rem;
+  }
+  
+  .run-button {
+    --background: #ff8800;
+    --color: #ffffff;
+    --border-radius: 999px;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+  
+  .comparison-section {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .columns {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    justify-content: space-between;
+  }
+  
+  .column {
+    flex: 1;
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  
+  .column h3 {
+    color: #ff8800;
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+  

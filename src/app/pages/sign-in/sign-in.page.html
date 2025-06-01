@@ -1,0 +1,41 @@
+<ion-content class="login-bg">
+  <div class="form-container">
+    <h3>Welcome back</h3>
+    <p>Please enter your login details.</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <ion-item>
+        <ion-input
+          formControlName="email"
+          label="Email"
+          labelPlacement="floating"
+          placeholder="Enter your email"
+          type="email">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          formControlName="password"
+          label="Password"
+          labelPlacement="floating"
+          placeholder="Enter your password"
+          type="password">
+        </ion-input>
+      </ion-item>
+
+      <div class="forgot-password" (click)="resetPassword()">
+        Forgot password?
+      </div>
+      
+
+      <ion-button
+        expand="block"
+        class="submit-button"
+        type="submit"
+        [disabled]="loginForm.invalid">
+        Continue
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

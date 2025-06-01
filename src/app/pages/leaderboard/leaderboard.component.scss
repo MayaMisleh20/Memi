@@ -1,0 +1,130 @@
+$orange: #ff8800;
+$orange-light: #fff7f0;
+$orange-mid: #fcefe2;
+$orange-dark: #000000;
+
+.lb-container {
+  --ion-background-color: #ffffff;
+  background-color: #ffffff;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.lb-wrapper {
+  padding: 1.8rem 1rem 2.5rem;
+  max-width: 1100px; // ⬅️ Increased from 720px
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+.lb-heading.with-nav {
+  margin-bottom: 2rem;
+
+  .lb-heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $orange;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 0.8rem;
+    text-align: center;
+  }
+}
+
+/* Orange arrow buttons */
+.lb-nav-text {
+  font-size: 2rem;
+  font-weight: 500;
+  color: black;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  &:focus,
+  &:active,
+  &:hover {
+    outline: none;
+    background: none;
+    box-shadow: none;
+  }
+}
+
+.lb-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.lb-table-header {
+  display: grid;
+  grid-template-columns: 40px 1.2fr 1.5fr 1fr 1fr 1fr 1.5fr;
+  background-color: $orange;
+  color: #ffffff;
+  padding: 0.8rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+.lb-table-row {
+  display: grid;
+  grid-template-columns: 40px 1.2fr 1.5fr 1fr 1fr 1fr 1.5fr;
+  background-color: #ffffff;
+  border: 1px solid #f2f2f2;
+  padding: 0.8rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #333;
+  align-items: center;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #fff3e7;
+  }
+
+  &.top1 {
+    background-color: $orange-light;
+    border: 2px solid $orange;
+    font-weight: 700;
+    color: $orange-dark;
+  }
+
+  &.top2 {
+    background-color: lighten($orange-light, 5%);
+    font-weight: 600;
+    border-left: 4px solid $orange;
+  }
+
+  &.top3 {
+    background-color: lighten($orange-light, 10%);
+    border-left: 3px solid $orange;
+  }
+}
+
+.lb-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 1rem;
+  color: #999;
+  background-color: #fafafa;
+  border: 1px dashed #ddd;
+  border-radius: 10px;
+  margin-top: 2rem;
+}

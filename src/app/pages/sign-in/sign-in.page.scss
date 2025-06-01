@@ -1,0 +1,112 @@
+.login-bg {
+  --background: white;
+  background: white;
+  color: black;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.form-container {
+  padding: 32px;
+  max-width: 500px;
+  margin: 0 auto;
+
+  h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #fb8c00;
+  }
+
+  p {
+    opacity: 0.7;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    line-height: 1.4;
+    color: #333;
+  }
+
+  ion-item {
+    --background: rgba(255, 140, 0, 0.05);
+    --color: black;
+    --padding-start: 12px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+
+    ion-input {
+      font-size: 1rem;
+      color: #000;
+    }
+
+    &:hover,
+    &:focus-within {
+      border-color: #ffa726;
+      box-shadow: 0 0 12px rgba(251, 140, 0, 0.4);
+    }
+  }
+
+  .forgot-password {
+    text-align: right;
+    font-size: 0.85rem;
+    margin-top: -12px;
+    margin-bottom: 16px;
+    color: #fb8c00;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      text-decoration: underline;
+      color: #ffa726;
+    }
+  }
+
+  .submit-button {
+    margin-top: 12px;
+    height: 50px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 12px;
+    --background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+    --box-shadow: 0 0 12px rgba(251, 140, 0, 0.6);
+    transition: all 0.3s ease-in-out;
+    color: white;
+
+    &:hover {
+      transform: scale(1.02);
+      --background: linear-gradient(135deg, #ffb74d 0%, #ffa726 100%);
+    }
+
+    &:active {
+      transform: scale(0.98);
+      --box-shadow: 0 0 8px rgba(251, 140, 0, 0.3);
+    }
+
+    &[disabled] {
+      opacity: 0.4;
+      --background: #e0e0e0;
+      color: #888;
+    }
+  }
+
+  .bottom-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #333;
+
+    a {
+      color: #fb8c00;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+        color: #ffa726;
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<ion-content class="lb-container" fullscreen>
+  <div class="lb-wrapper">
+    <div class="lb-heading with-nav">
+      <div class="lb-heading-row">
+        <span class="lb-nav-text" (click)="goHome()">&lt;</span>
+        <h2>Top Simulation Rankings</h2>
+        <span class="lb-nav-text" (click)="goTutorial()">&gt;</span>
+      </div>
+      <p>Sorted by CPU Utilization</p>
+    </div>
+
+    <div class="lb-table">
+      <div class="lb-table-header">
+        <div>#</div>
+        <div>Player</div>
+        <div>Algorithm</div>
+        <div>CPU</div>
+        <div>Wait</div>
+        <div>TAT</div>
+        <div>Date</div>
+      </div>
+
+      <div
+        class="lb-table-row"
+        *ngFor="let e of sortedEntries(); let i = index"
+        [class.top1]="i === 0"
+        [class.top2]="i === 1"
+        [class.top3]="i === 2"
+      >
+        <div>#{{ i + 1 }}</div>
+        <div>{{ e.player }}</div>
+        <div>{{ e.algorithm }}</div>
+        <div>{{ e.cpuUtilization }}%</div>
+        <div>{{ e.avgWait | number:'1.0-2' }} ms</div>
+        <div>{{ e.avgTurnaround | number:'1.0-2' }} ms</div>
+        <div>{{ e.date }}</div>
+      </div>
+
+      <div *ngIf="!entries.length" class="lb-empty">
+        No leaderboard data yet. Run a simulation to appear here.
+      </div>
+    </div>
+  </div>
+</ion-content>

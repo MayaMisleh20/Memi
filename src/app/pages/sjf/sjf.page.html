@@ -1,0 +1,201 @@
+<ion-header>
+  <ion-toolbar color="primary" class="header-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" class="back-button"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="header-title">Stride Scheduler</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openTutorial()" class="icon-button">
+        <ion-icon name="help-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding stride-content">
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-text">
+        <h1 class="hero-title">Stride Scheduling Visualizer</h1>
+        <p class="hero-subtitle">
+          Simulate how CPU time is fairly divided among processes using stride scheduling.  
+          Set process priorities, observe stride values, and watch the scheduler balance the work over time.
+        </p>
+      </div>
+      <div class="hero-graphic">
+        <div class="process-sample">
+          <div
+            class="process-circle pulse"
+            *ngFor="let p of processes"
+            [style.background]="getProcessColor(p.pid)"
+          >
+            <span>P{{ p.pid }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Accordion -->
+    <ion-card class="how-it-works-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">How It Works</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-accordion-group>
+          <ion-accordion value="overview">
+            <ion-item slot="header" class="accordion-header">
+              <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+              <ion-label>Overview</ion-label>
+              <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
+            </ion-item>
+            <div slot="content" class="accordion-content">
+              <p>
+                Stride Scheduling ensures fair CPU time sharing by assigning each process a stride (based on priority).
+                The scheduler always picks the process with the lowest pass value and increments it by the stride.
+              </p>
+            </div>
+          </ion-accordion>
+
+          <ion-accordion value="steps">
+            <ion-item slot="header" class="accordion-header">
+              <ion-icon name="list-outline" slot="start"></ion-icon>
+              <ion-label>Steps</ion-label>
+              <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
+            </ion-item>
+            <div slot="content" class="accordion-content">
+              <div class="algorithm-steps">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <div class="step-content">Set the number of processes and their priorities.</div>
+                </div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <div class="step-content">Each process receives a stride: stride = big_number / priority.</div>
+                </div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <div class="step-content">Simulate CPU ticks: pick the process with the smallest pass value.</div>
+                </div>
+                <div class="step">
+                  <div class="step-number">4</div>
+                  <div class="step-content">Update the Gantt chart to visualize time slices.</div>
+                </div>
+              </div>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Process Setup Card -->
+    <ion-card class="process-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">Configure Processes</ion-card-title>
+        <ion-card-subtitle class="card-subtitle">Set how many processes to simulate</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Number of Processes</ion-label>
+          <ion-input type="number" min="1" [(ngModel)]="numProcesses" class="elegant-input"></ion-input>
+        </ion-item>
+        <ion-button expand="block" class="elegant-button primary" (click)="initProcesses()">
+          <ion-icon slot="start" name="construct-outline"></ion-icon>
+          Initialize Processes
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons" *ngIf="processes.length">
+      <ion-button expand="block" class="elegant-button primary" (click)="simulateStride()">
+        <ion-icon slot="start" name="play-circle-outline"></ion-icon>
+        Run Simulation ({{ totalTicks }} ticks)
+      </ion-button>
+      <ion-button expand="block" class="elegant-button tertiary" (click)="resetAll()">
+        <ion-icon slot="start" name="refresh-circle-outline"></ion-icon>
+        Reset
+      </ion-button>
+    </div>
+
+    <!-- Gantt Chart -->
+    <ion-card *ngIf="showResult" class="gantt-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">Execution Timeline</ion-card-title>
+        <ion-card-subtitle class="card-subtitle">Visual CPU time allocation</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="gantt-container">
+          <div class="gantt-chart">
+            <div
+              class="gantt-bar"
+              *ngFor="let entry of ganttChart"
+              [style.width.%]="(entry.end - entry.start) * (100 / totalTicks)"
+              [style.background]="getProcessColor(entry.pid)"
+            >
+              <div class="bar-info">
+                <span class="bar-process">P{{ entry.pid }}</span>
+                <span class="bar-time">{{ entry.start }}–{{ entry.end }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Process Summary Metrics -->
+    <ion-card *ngIf="showResult" class="details-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">Process Summary</ion-card-title>
+        <ion-card-subtitle class="card-subtitle">Priority and stride details</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="details-table">
+          <div class="details-header">
+            <div class="details-cell">Process</div>
+            <div class="details-cell">Priority</div>
+            <div class="details-cell">Stride</div>
+          </div>
+          <div class="details-row" *ngFor="let p of processes">
+            <div class="details-cell" [style.color]="getProcessColor(p.pid)">P{{ p.pid }}</div>
+            <div class="details-cell">{{ p.priority }}</div>
+            <div class="details-cell">{{ p.stride }}</div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Tutorial Modal -->
+  <ion-modal [isOpen]="showTutorialModal" (didDismiss)="showTutorialModal = false" class="tutorial-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title class="modal-title">Stride Algorithm Tutorial</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="showTutorialModal = false" class="modal-close">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding tutorial-content">
+        <div class="tutorial-section">
+          <h2 class="tutorial-heading">
+            <ion-icon name="information-circle-outline" class="heading-icon"></ion-icon>
+            What is Stride Scheduling?
+          </h2>
+          <p class="tutorial-text">
+            Stride Scheduling is a CPU scheduling algorithm where each process gets a proportional share of CPU time.
+            The system assigns a stride based on priority: the higher the priority, the smaller the stride.
+            Processes with the lowest accumulated pass value are picked to run next.
+          </p>
+        </div>
+
+        <ion-button expand="block" class="tutorial-button" (click)="showTutorialModal = false">
+          Got It! Let's Try
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

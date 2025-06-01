@@ -1,0 +1,50 @@
+<ion-content class="coach-wrapper" fullscreen>
+  <div class="coach-center">
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+      Step {{ currentIndex + 1 }} of {{ questions.length }}
+    </div>
+
+    <!-- Question Section -->
+    <ng-container *ngIf="currentIndex < questions.length">
+      <h1 class="question">{{ questions[currentIndex].title }}</h1>
+      <p class="tip">{{ questions[currentIndex].tip }}</p>
+
+      <div class="options">
+        <ion-button
+          *ngFor="let option of questions[currentIndex].options"
+          expand="block"
+          fill="outline"
+          shape="round"
+          class="answer-button"
+          [attr.selected]="answers[currentIndex] === option ? true : null"
+          (click)="selectOption(option)"
+        >
+          {{ toSentenceCase(option) }}
+        </ion-button>
+      </div>
+
+      <ion-button
+        expand="block"
+        class="next-button"
+        [disabled]="!answers[currentIndex]"
+        (click)="nextQuestion()"
+      >
+        {{ currentIndex < questions.length - 1 ? 'Next' : 'Get Recommendation' }}
+      </ion-button>
+    </ng-container>
+
+    <!-- Recommendation Section -->
+    <ng-container *ngIf="currentIndex === questions.length && recommendation">
+      <h2 class="result-title">Your Recommended Algorithm</h2>
+      <h3 class="recommendation">{{ recommendation }}</h3>
+
+      <!-- Render explanation with HTML links -->
+      <p class="result-tip" [innerHTML]="explanation"></p>
+
+      <ion-button expand="block" color="primary" (click)="goToAlgorithm()">
+        Try {{ recommendation }}
+      </ion-button>
+    </ng-container>
+  </div>
+</ion-content>

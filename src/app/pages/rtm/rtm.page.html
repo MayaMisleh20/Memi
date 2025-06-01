@@ -1,0 +1,198 @@
+<ion-header>
+  <ion-toolbar color="primary" class="header-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" class="back-button"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="header-title">RTM Scheduler</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openTutorial()" class="icon-button">
+        <ion-icon name="help-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding rtm-content">
+  <div class="container">
+    <section class="hero-section">
+      <div class="hero-text">
+        <h1 class="hero-title">Real-Time Scheduling Visualizer</h1>
+        <p class="hero-subtitle">
+          Explore Rate Monotonic Scheduling (RTM) with an interactive simulation.
+          Add tasks, assign periods and execution times, and visualize preemptions and deadlines.
+        </p>
+      </div>
+      <div class="hero-graphic">
+        <div class="process-sample">
+          <div class="process-circle pulse" *ngFor="let task of tasks" [style.background]="task.color">
+            <span>T{{ task.id }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <ion-card class="how-it-works-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">How It Works</ion-card-title>
+        <ion-card-subtitle class="card-subtitle">Understand RTM Scheduling steps</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-accordion-group>
+          <ion-accordion value="overview">
+            <ion-item slot="header" class="accordion-header">
+              <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+              <ion-label>Overview</ion-label>
+              <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
+            </ion-item>
+            <div slot="content" class="accordion-content">
+              <p>
+                Rate Monotonic Scheduling (RTM) assigns fixed priorities to periodic tasks based on their periods: the shorter the period, the higher the priority. It guarantees schedulability if utilization stays below a certain bound.
+              </p>
+            </div>
+          </ion-accordion>
+          <ion-accordion value="steps">
+            <ion-item slot="header" class="accordion-header">
+              <ion-icon name="play-outline" slot="start"></ion-icon>
+              <ion-label>Steps</ion-label>
+              <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
+            </ion-item>
+            <div slot="content" class="accordion-content">
+              <div class="algorithm-steps">
+                <div class="step"><div class="step-number">1</div><div class="step-content">Add periodic tasks with execution times and periods.</div></div>
+                <div class="step"><div class="step-number">2</div><div class="step-content">Run the simulation to observe the schedule over the least common multiple of periods.</div></div>
+                <div class="step"><div class="step-number">3</div><div class="step-content">Analyze missed deadlines and CPU utilization.</div></div>
+              </div>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="process-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">Task Details</ion-card-title>
+        <ion-card-subtitle class="card-subtitle">Enter period, execution time, and color</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="process-table">
+          <div class="table-header">
+            <div class="header-cell">Task</div>
+            <div class="header-cell">Period</div>
+            <div class="header-cell">Execution</div>
+            <div class="header-cell">Color</div>
+            <div class="header-cell">Actions</div>
+          </div>
+          <div class="table-row" *ngFor="let t of tasks; let i = index">
+            <div class="table-cell">T{{ t.id }}</div>
+            <div class="table-cell">
+              <ion-input type="number" min="1" [(ngModel)]="t.period" class="elegant-input"></ion-input>
+            </div>
+            <div class="table-cell">
+              <ion-input type="number" min="1" [(ngModel)]="t.execution" class="elegant-input"></ion-input>
+            </div>
+            <div class="table-cell">
+              <ion-select [(ngModel)]="t.color" interface="popover" class="color-select" placeholder="Pick">
+                <ion-select-option *ngFor="let color of colorOptions" [value]="color.value">
+                  <div style="display: flex; align-items: center;">
+                    <div style="width: 16px; height: 16px; border-radius: 50%; margin-right: 8px;" [style.background]="color.value"></div>
+                    {{ color.name }}
+                  </div>
+                </ion-select-option>
+              </ion-select>
+            </div>
+            <div class="table-cell">
+              <ion-button color="danger" fill="clear" (click)="deleteTask(i)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <ion-button expand="block" class="elegant-button primary" (click)="runSimulation()" [disabled]="!isValidInput()">
+            <ion-icon slot="start" name="play-circle-outline"></ion-icon>
+            Run Simulation
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="result" class="results-section">
+      <ion-card class="gantt-card">
+        <ion-card-header>
+          <ion-card-title class="card-title">Execution Timeline</ion-card-title>
+          <ion-card-subtitle class="card-subtitle">Visual representation of RTM scheduling</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="gantt-container">
+            <div class="timeline-axis">
+              <div class="timeline-marker" *ngFor="let marker of getTimelineMarkers()">
+                <div class="marker-line"></div>
+                <div class="marker-label">{{ marker }}</div>
+              </div>
+            </div>
+            <div class="gantt-chart">
+              <div class="gantt-bar" *ngFor="let block of result.schedule" [style.width.%]="calculateBarWidth(block)" [style.margin-left.%]="calculateBarOffset(block)" [style.background]="getTaskColor(block.id)">
+                <div class="bar-info">
+                  <span class="bar-process">T{{ block.id }}</span>
+                  <span class="bar-time">{{ block.startTime }}–{{ block.endTime }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <div class="metrics-grid">
+        <ion-card class="metric-card">
+          <ion-card-header>
+            <ion-card-title>Missed Deadlines</ion-card-title>
+            <ion-card-subtitle>Number of deadline violations</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="metric-value">{{ result.missedDeadlines }}</div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="metric-card">
+          <ion-card-header>
+            <ion-card-title>CPU Utilization</ion-card-title>
+            <ion-card-subtitle>Processor load</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="metric-value">{{ result.utilization | number:'1.2-2' }}%</div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+
+    <ion-modal [isOpen]="showTutorialModal" (didDismiss)="showTutorialModal = false" class="tutorial-modal">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar color="primary">
+            <ion-title class="modal-title">RTM Algorithm Tutorial</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="showTutorialModal = false" class="modal-close">
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding tutorial-content">
+          <div class="tutorial-section">
+            <h2 class="tutorial-heading">
+              <ion-icon name="time-outline" class="heading-icon"></ion-icon>
+              What is Rate Monotonic Scheduling?
+            </h2>
+            <p class="tutorial-text">
+              RTM is a fixed-priority scheduling algorithm for periodic tasks. It assigns higher priority to tasks with shorter periods, ensuring timely execution if the system is under the schedulability bound.
+            </p>
+          </div>
+          <ion-button expand="block" class="tutorial-button" (click)="showTutorialModal = false">
+            Got It! Let's Try
+          </ion-button>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+</ion-content>
